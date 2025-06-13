@@ -19,6 +19,10 @@ export interface Shop {
   posterUrl?: string;
   items: Item[];
   owner: string;
+  phone: string;
+  email: string;
+  openingHours: string;
+  category: string;
 }
 
 export interface User {

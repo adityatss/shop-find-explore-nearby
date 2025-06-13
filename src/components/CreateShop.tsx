@@ -15,6 +15,10 @@ const CreateShop: React.FC<CreateShopProps> = ({ onCreateShop, onCancel, userLoc
   const [address, setAddress] = useState('');
   const [posterUrl, setPosterUrl] = useState('');
   const [location, setLocation] = useState(userLocation || { latitude: 0, longitude: 0 });
+  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
+  const [openingHours, setOpeningHours] = useState('');
+  const [category, setCategory] = useState('');
   const [items, setItems] = useState<Omit<Item, 'id'>[]>([]);
   const [newItemName, setNewItemName] = useState('');
   const [newItemQuantity, setNewItemQuantity] = useState(1);
@@ -43,6 +47,10 @@ const CreateShop: React.FC<CreateShopProps> = ({ onCreateShop, onCancel, userLoc
       address,
       posterUrl: posterUrl || undefined,
       location,
+      phone,
+      email,
+      openingHours,
+      category,
       items: items.map((item, index) => ({
         ...item,
         id: `item-${Date.now()}-${index}`
@@ -107,17 +115,31 @@ const CreateShop: React.FC<CreateShopProps> = ({ onCreateShop, onCancel, userLoc
               
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Address *
+                  Category *
                 </label>
                 <input
                   type="text"
-                  value={address}
-                  onChange={(e) => setAddress(e.target.value)}
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
                   required
                   className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="Enter shop address"
+                  placeholder="e.g., Electronics, Grocery, Fashion"
                 />
               </div>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Address *
+              </label>
+              <input
+                type="text"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+                required
+                className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                placeholder="Enter shop address"
+              />
             </div>
 
             <div>
@@ -132,6 +154,54 @@ const CreateShop: React.FC<CreateShopProps> = ({ onCreateShop, onCancel, userLoc
                 className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 placeholder="Describe your shop and what you offer"
               />
+            </div>
+
+            {/* Contact Information */}
+            <div className="bg-gray-50 rounded-lg p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Contact Information</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Phone Number *
+                  </label>
+                  <input
+                    type="tel"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    required
+                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="+1 (555) 123-4567"
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Email Address *
+                  </label>
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="contact@yourshop.com"
+                  />
+                </div>
+              </div>
+              
+              <div className="mt-6">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Opening Hours *
+                </label>
+                <input
+                  type="text"
+                  value={openingHours}
+                  onChange={(e) => setOpeningHours(e.target.value)}
+                  required
+                  className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="Mon-Fri: 9:00 AM - 6:00 PM, Sat-Sun: 10:00 AM - 4:00 PM"
+                />
+              </div>
             </div>
 
             <div>
@@ -251,7 +321,7 @@ const CreateShop: React.FC<CreateShopProps> = ({ onCreateShop, onCancel, userLoc
               </button>
               <button
                 type="submit"
-                disabled={!name || !description || !address}
+                disabled={!name || !description || !address || !phone || !email || !openingHours || !category}
                 className="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 Create Shop

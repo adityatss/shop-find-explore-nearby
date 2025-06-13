@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { ArrowLeft, MapPin, Search, Package } from 'lucide-react';
+import { ArrowLeft, MapPin, Search, Package, Phone, Mail, Clock, User, Tag } from 'lucide-react';
 import { Shop, Item } from '../types';
 
 interface ShopDetailsProps {
@@ -45,8 +45,14 @@ const ShopDetails: React.FC<ShopDetailsProps> = ({ shop, onBack }) => {
                 <Package size={64} className="text-gray-400" />
               </div>
             )}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
             <div className="absolute bottom-6 left-6 text-white">
+              <div className="flex items-center mb-2">
+                <Tag size={16} className="mr-2" />
+                <span className="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full text-sm">
+                  {shop.category}
+                </span>
+              </div>
               <h1 className="text-3xl font-bold mb-2">{shop.name}</h1>
               <div className="flex items-center">
                 <MapPin size={16} className="mr-1" />
@@ -56,9 +62,78 @@ const ShopDetails: React.FC<ShopDetailsProps> = ({ shop, onBack }) => {
           </div>
           
           <div className="p-6">
-            <p className="text-gray-600 text-lg leading-relaxed">
+            <p className="text-gray-600 text-lg leading-relaxed mb-6">
               {shop.description}
             </p>
+
+            {/* Contact Information Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-gradient-to-br from-gray-50 to-blue-50 rounded-xl p-6">
+              <h3 className="text-xl font-bold text-gray-900 col-span-full mb-4">Contact Information</h3>
+              
+              <div className="space-y-4">
+                <div className="flex items-center">
+                  <div className="p-2 bg-blue-100 rounded-lg mr-3">
+                    <User size={20} className="text-blue-600" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Owner</p>
+                    <p className="font-semibold text-gray-900">{shop.owner}</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center">
+                  <div className="p-2 bg-green-100 rounded-lg mr-3">
+                    <Phone size={20} className="text-green-600" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Phone</p>
+                    <p className="font-semibold text-gray-900">{shop.phone}</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center">
+                  <div className="p-2 bg-purple-100 rounded-lg mr-3">
+                    <Mail size={20} className="text-purple-600" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Email</p>
+                    <p className="font-semibold text-gray-900">{shop.email}</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <div className="flex items-start">
+                  <div className="p-2 bg-orange-100 rounded-lg mr-3">
+                    <Clock size={20} className="text-orange-600" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Opening Hours</p>
+                    <p className="font-semibold text-gray-900">{shop.openingHours}</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center">
+                  <div className="p-2 bg-red-100 rounded-lg mr-3">
+                    <MapPin size={20} className="text-red-600" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Address</p>
+                    <p className="font-semibold text-gray-900">{shop.address}</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center">
+                  <div className="p-2 bg-teal-100 rounded-lg mr-3">
+                    <Tag size={20} className="text-teal-600" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Category</p>
+                    <p className="font-semibold text-gray-900">{shop.category}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 

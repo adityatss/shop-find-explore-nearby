@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { MapPin, Package, ArrowRight } from 'lucide-react';
+import { MapPin, Package, ArrowRight, Phone, Clock, Tag } from 'lucide-react';
 import { Shop, UserLocation } from '../types';
 import { calculateDistance } from '../utils/distance';
 
@@ -50,6 +50,12 @@ const ShopCard: React.FC<ShopCardProps> = ({ shop, userLocation, onClick }) => {
           </div>
         )}
         
+        {/* Category badge */}
+        <div className="absolute top-4 left-4 px-3 py-1 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-full text-xs font-semibold shadow-lg flex items-center">
+          <Tag size={12} className="mr-1" />
+          {shop.category}
+        </div>
+        
         {/* Gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </div>
@@ -62,13 +68,29 @@ const ShopCard: React.FC<ShopCardProps> = ({ shop, userLocation, onClick }) => {
           <ArrowRight size={20} className="text-gray-400 group-hover:text-purple-600 group-hover:translate-x-1 transition-all duration-300 flex-shrink-0 ml-2" />
         </div>
         
-        <div className="flex items-center text-gray-600 mb-4">
+        <div className="flex items-center text-gray-600 mb-3">
           <div className="p-1 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full mr-2">
             <MapPin size={12} className="text-white" />
           </div>
           <span className="text-sm">
             {distance !== null ? `${distance.toFixed(1)} km away` : shop.address}
           </span>
+        </div>
+
+        {/* Contact Info */}
+        <div className="flex items-center text-gray-600 mb-3">
+          <div className="p-1 bg-gradient-to-r from-green-500 to-teal-600 rounded-full mr-2">
+            <Phone size={12} className="text-white" />
+          </div>
+          <span className="text-sm">{shop.phone}</span>
+        </div>
+
+        {/* Opening Hours */}
+        <div className="flex items-center text-gray-600 mb-4">
+          <div className="p-1 bg-gradient-to-r from-orange-500 to-red-600 rounded-full mr-2">
+            <Clock size={12} className="text-white" />
+          </div>
+          <span className="text-sm truncate">{shop.openingHours}</span>
         </div>
         
         <p className="text-gray-600 text-sm mb-6 line-clamp-2 leading-relaxed">
