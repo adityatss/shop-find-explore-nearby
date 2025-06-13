@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Search, MapPin } from 'lucide-react';
+import { Search, MapPin, Sparkles } from 'lucide-react';
 
 interface HeaderProps {
   onSearch: () => void;
@@ -8,25 +8,35 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ onSearch }) => {
   return (
-    <header className="bg-white/90 backdrop-blur-sm border-b sticky top-0 z-50">
-      <div className="max-w-6xl mx-auto px-4 py-4">
+    <header className="bg-white/90 backdrop-blur-md border-b border-white/20 sticky top-0 z-50 shadow-lg">
+      <div className="max-w-6xl mx-auto px-4 py-6">
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-2 rounded-lg">
-              <MapPin size={24} className="text-white" />
+          <div className="flex items-center space-x-4">
+            <div className="relative">
+              <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl blur opacity-75"></div>
+              <div className="relative bg-gradient-to-r from-blue-600 to-purple-600 p-3 rounded-2xl shadow-xl">
+                <MapPin size={28} className="text-white" />
+              </div>
             </div>
             <div>
-              <h1 className="text-xl font-bold text-gray-900">ShopExplore</h1>
-              <p className="text-sm text-gray-500">Find • Explore • Shop</p>
+              <div className="flex items-center space-x-2">
+                <h1 className="text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+                  ShopExplore
+                </h1>
+                <Sparkles size={20} className="text-purple-600" />
+              </div>
+              <p className="text-sm text-gray-600 font-medium">Find • Explore • Shop</p>
             </div>
           </div>
           
           <button
             onClick={onSearch}
-            className="flex items-center space-x-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
+            className="group flex items-center space-x-3 px-6 py-3 bg-gradient-to-r from-gray-50 to-white hover:from-blue-50 hover:to-purple-50 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl border border-gray-200 hover:border-purple-200 transform hover:scale-105"
           >
-            <Search size={18} className="text-gray-600" />
-            <span className="text-gray-600 hidden sm:inline">Search</span>
+            <Search size={20} className="text-gray-600 group-hover:text-purple-600 transition-colors duration-300" />
+            <span className="text-gray-700 group-hover:text-purple-700 font-medium hidden sm:inline transition-colors duration-300">
+              Search
+            </span>
           </button>
         </div>
       </div>
