@@ -277,7 +277,7 @@ const Index = () => {
       </div>
 
       <main className="max-w-6xl mx-auto px-4 py-12 relative z-10">
-        {/* Enhanced Hero Section with Images */}
+        {/* Hero Section with Normal Font Sizes */}
         <div className="text-center mb-20 animate-fade-in">
           <div className="flex items-center justify-center mb-8">
             <div className="p-6 bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl shadow-2xl">
@@ -285,7 +285,7 @@ const Index = () => {
             </div>
           </div>
           
-          <h1 className="text-6xl md:text-8xl font-bold bg-gradient-to-r from-gray-900 via-blue-800 to-purple-800 bg-clip-text text-transparent mb-8 leading-tight">
+          <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-gray-900 via-blue-800 to-purple-800 bg-clip-text text-transparent mb-8 leading-tight">
             Discover Local
             <br />
             <span className="text-transparent bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text">
@@ -293,11 +293,11 @@ const Index = () => {
             </span>
           </h1>
           
-          <p className="text-2xl md:text-3xl text-gray-600 mb-16 max-w-4xl mx-auto leading-relaxed">
+          <p className="text-lg md:text-xl text-gray-600 mb-16 max-w-4xl mx-auto leading-relaxed">
             Find amazing products and services in your neighborhood with just a few clicks
           </p>
           
-          {/* Search Section - Back to Normal Size */}
+          {/* Search Section - Normal Size */}
           <div className="max-w-2xl mx-auto mb-16">
             <div className="bg-white/90 backdrop-blur-md rounded-2xl shadow-xl p-8 border border-white/20">
               <button
@@ -361,10 +361,10 @@ const Index = () => {
                 <Store size={28} className="text-white" />
               </div>
               <div>
-                <h2 className="text-4xl font-bold text-gray-900">
+                <h2 className="text-3xl font-bold text-gray-900">
                   {locationPermission === 'granted' ? 'Nearby Shops' : 'Featured Shops'}
                 </h2>
-                <p className="text-xl text-gray-600">
+                <p className="text-lg text-gray-600">
                   {locationPermission === 'granted' 
                     ? 'Discover shops in your area' 
                     : 'Explore local businesses'
@@ -383,11 +383,11 @@ const Index = () => {
                 <Store size={80} className="relative z-10 mx-auto text-gray-400" />
               </div>
               
-              <h3 className="text-3xl font-bold text-gray-800 mb-6">
+              <h3 className="text-2xl font-bold text-gray-800 mb-6">
                 {locationPermission === 'granted' ? 'No nearby shops found' : 'No shops available yet'}
               </h3>
               
-              <p className="text-xl text-gray-600 mb-12 max-w-lg mx-auto">
+              <p className="text-lg text-gray-600 mb-12 max-w-lg mx-auto">
                 {locationPermission === 'granted' 
                   ? 'Be the first to create a shop in your area and help build the community!'
                   : 'Start building your local marketplace by creating the first shop!'
