@@ -293,36 +293,61 @@ const Index = () => {
             </span>
           </h1>
           
-          <p className="text-2xl md:text-3xl text-gray-600 mb-12 max-w-4xl mx-auto leading-relaxed">
+          <p className="text-2xl md:text-3xl text-gray-600 mb-16 max-w-4xl mx-auto leading-relaxed">
             Find amazing products and services in your neighborhood with just a few clicks
           </p>
           
-          {/* Enhanced Search Section */}
-          <div className="max-w-4xl mx-auto mb-16">
-            <div className="bg-white/90 backdrop-blur-md rounded-3xl shadow-2xl p-8 border border-white/20">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">What are you looking for?</h2>
+          {/* Enhanced Bigger Search Section */}
+          <div className="max-w-6xl mx-auto mb-20">
+            <div className="bg-white/95 backdrop-blur-md rounded-3xl shadow-2xl p-12 border border-white/30 transform hover:scale-105 transition-all duration-500">
+              <div className="mb-8">
+                <h2 className="text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+                  What are you looking for?
+                </h2>
+                <p className="text-xl text-gray-600 mb-8">
+                  Discover shops and products in your area with our powerful search
+                </p>
+              </div>
               
               <button
                 onClick={() => setShowSearch(true)}
-                className="group relative inline-flex items-center w-full max-w-2xl mx-auto px-8 py-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-xl font-semibold rounded-2xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-2xl hover:shadow-3xl transform hover:scale-105 hover:-translate-y-2"
+                className="group relative inline-flex items-center w-full max-w-4xl mx-auto px-12 py-8 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 text-white text-2xl font-bold rounded-3xl hover:from-blue-700 hover:via-purple-700 hover:to-indigo-700 transition-all duration-500 shadow-2xl hover:shadow-3xl transform hover:scale-105 hover:-translate-y-3 border-4 border-white/20"
               >
-                <Search size={32} className="mr-4 group-hover:rotate-12 transition-transform duration-300" />
+                <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 opacity-0 group-hover:opacity-30 transition-opacity duration-500 blur-xl"></div>
+                <Search size={40} className="mr-6 group-hover:rotate-12 transition-transform duration-500" />
                 <span className="flex-1 text-left">Search Shops & Products...</span>
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-600 to-purple-600 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+                <div className="absolute right-8 top-1/2 transform -translate-y-1/2">
+                  <div className="w-6 h-6 bg-white/20 rounded-full animate-pulse"></div>
+                </div>
               </button>
               
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-                <div className="flex items-center space-x-3 p-4 bg-blue-50 rounded-xl">
-                  <ShoppingBag size={24} className="text-blue-600" />
-                  <span className="text-gray-700 font-medium">Browse Products</span>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+                <div className="flex items-center space-x-4 p-6 bg-gradient-to-r from-blue-50 to-blue-100 rounded-2xl hover:from-blue-100 hover:to-blue-200 transition-all duration-300 transform hover:scale-105 shadow-lg">
+                  <div className="p-3 bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl shadow-lg">
+                    <ShoppingBag size={28} className="text-white" />
+                  </div>
+                  <div>
+                    <span className="text-gray-800 font-bold text-lg">Browse Products</span>
+                    <p className="text-gray-600 text-sm">Find what you need</p>
+                  </div>
                 </div>
-                <div className="flex items-center space-x-3 p-4 bg-purple-50 rounded-xl">
-                  <Store size={24} className="text-purple-600" />
-                  <span className="text-gray-700 font-medium">Find Local Shops</span>
+                <div className="flex items-center space-x-4 p-6 bg-gradient-to-r from-purple-50 to-purple-100 rounded-2xl hover:from-purple-100 hover:to-purple-200 transition-all duration-300 transform hover:scale-105 shadow-lg">
+                  <div className="p-3 bg-gradient-to-r from-purple-500 to-purple-600 rounded-xl shadow-lg">
+                    <Store size={28} className="text-white" />
+                  </div>
+                  <div>
+                    <span className="text-gray-800 font-bold text-lg">Find Local Shops</span>
+                    <p className="text-gray-600 text-sm">Discover nearby stores</p>
+                  </div>
                 </div>
-                <div className="flex items-center space-x-3 p-4 bg-green-50 rounded-xl">
-                  <Heart size={24} className="text-green-600" />
-                  <span className="text-gray-700 font-medium">Save Favorites</span>
+                <div className="flex items-center space-x-4 p-6 bg-gradient-to-r from-green-50 to-green-100 rounded-2xl hover:from-green-100 hover:to-green-200 transition-all duration-300 transform hover:scale-105 shadow-lg">
+                  <div className="p-3 bg-gradient-to-r from-green-500 to-green-600 rounded-xl shadow-lg">
+                    <Heart size={28} className="text-white" />
+                  </div>
+                  <div>
+                    <span className="text-gray-800 font-bold text-lg">Save Favorites</span>
+                    <p className="text-gray-600 text-sm">Keep track of favorites</p>
+                  </div>
                 </div>
               </div>
             </div>
