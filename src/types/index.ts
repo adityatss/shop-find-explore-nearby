@@ -23,6 +23,7 @@ export interface Shop {
   email: string;
   openingHours: string;
   category: string;
+  createdBy?: string; // Track who created this shop
 }
 
 export interface User {

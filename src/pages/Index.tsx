@@ -19,6 +19,14 @@ const Index = () => {
   const [showCreateShop, setShowCreateShop] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const [locationPermission, setLocationPermission] = useState<'pending' | 'granted' | 'denied'>('pending');
+  const [currentUserId] = useState<string>(() => {
+    // Generate or retrieve user ID from localStorage
+    const existingId = localStorage.getItem('userId');
+    if (existingId) return existingId;
+    const newId = `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    localStorage.setItem('userId', newId);
+    return newId;
+  });
 
   useEffect(() => {
     requestLocation();
@@ -71,7 +79,8 @@ const Index = () => {
   const handleCreateShop = (newShop: Omit<Shop, 'id'>) => {
     const shop: Shop = {
       ...newShop,
-      id: Date.now().toString()
+      id: Date.now().toString(),
+      createdBy: currentUserId // Add ownership
     };
     setShops([...shops, shop]);
     setShowCreateShop(false);
@@ -100,7 +109,7 @@ const Index = () => {
       <ShopDetails 
         shop={selectedShop} 
         onBack={() => setSelectedShop(null)} 
-        onEditShop={setEditingShop}
+        onEditShop={selectedShop.createdBy === currentUserId ? setEditingShop : undefined}
         userLocation={userLocation} 
       />
     );

@@ -6,7 +6,7 @@ import { Shop, Item, UserLocation } from '../types';
 interface ShopDetailsProps {
   shop: Shop;
   onBack: () => void;
-  onEditShop?: (shop: Shop) => void;
+  onEditShop?: (shop: Shop) => void; // Optional - only provided for owned shops
   userLocation?: UserLocation | null;
 }
 
