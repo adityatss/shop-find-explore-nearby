@@ -25,6 +25,24 @@ export interface Shop {
   category: string;
 }
 
+export interface Hostel {
+  id: string;
+  name: string;
+  description: string;
+  address: string;
+  location: UserLocation;
+  posterUrl?: string;
+  owner: string;
+  phone: string;
+  email: string;
+  checkInTime: string;
+  checkOutTime: string;
+  amenities: string[];
+  pricePerNight: number;
+  availableRooms: number;
+  rating: number;
+}
+
 export interface User {
   id: string;
   name: string;
