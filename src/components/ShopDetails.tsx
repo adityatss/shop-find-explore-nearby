@@ -1,15 +1,16 @@
 
 import React, { useState } from 'react';
-import { ArrowLeft, MapPin, Search, Package, Phone, Mail, Clock, User, Tag, Navigation } from 'lucide-react';
+import { ArrowLeft, MapPin, Search, Package, Phone, Mail, Clock, User, Tag, Navigation, Edit } from 'lucide-react';
 import { Shop, Item, UserLocation } from '../types';
 
 interface ShopDetailsProps {
   shop: Shop;
   onBack: () => void;
+  onEditShop?: (shop: Shop) => void;
   userLocation?: UserLocation | null;
 }
 
-const ShopDetails: React.FC<ShopDetailsProps> = ({ shop, onBack, userLocation }) => {
+const ShopDetails: React.FC<ShopDetailsProps> = ({ shop, onBack, onEditShop, userLocation }) => {
   const [searchTerm, setSearchTerm] = useState('');
   
   const filteredItems = shop.items.filter(item =>
@@ -73,8 +74,18 @@ const ShopDetails: React.FC<ShopDetailsProps> = ({ shop, onBack, userLocation })
               </div>
             </div>
             
-            {/* Get Directions Button */}
-            <div className="absolute bottom-6 right-6">
+            {/* Action Buttons */}
+            <div className="absolute bottom-6 right-6 flex space-x-3">
+              {onEditShop && (
+                <button
+                  onClick={() => onEditShop(shop)}
+                  className="flex items-center px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition-colors shadow-lg"
+                >
+                  <Edit size={18} className="mr-2" />
+                  Edit Shop
+                </button>
+              )}
+              
               <button
                 onClick={handleGetDirections}
                 className="flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors shadow-lg"

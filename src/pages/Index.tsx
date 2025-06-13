@@ -1,10 +1,10 @@
-
 import React, { useState, useEffect } from 'react';
 import { MapPin, Search, Plus, Store, Sparkles } from 'lucide-react';
 import Header from '../components/Header';
 import ShopCard from '../components/ShopCard';
 import ShopDetails from '../components/ShopDetails';
 import CreateShop from '../components/CreateShop';
+import EditShop from '../components/EditShop';
 import SearchModal from '../components/SearchModal';
 import { Shop, UserLocation } from '../types';
 import { mockShops } from '../data/mockData';
@@ -15,6 +15,7 @@ const Index = () => {
   const [userLocation, setUserLocation] = useState<UserLocation | null>(null);
   const [nearbyShops, setNearbyShops] = useState<Shop[]>([]);
   const [selectedShop, setSelectedShop] = useState<Shop | null>(null);
+  const [editingShop, setEditingShop] = useState<Shop | null>(null);
   const [showCreateShop, setShowCreateShop] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const [locationPermission, setLocationPermission] = useState<'pending' | 'granted' | 'denied'>('pending');
@@ -76,8 +77,33 @@ const Index = () => {
     setShowCreateShop(false);
   };
 
+  const handleUpdateShop = (updatedShop: Shop) => {
+    setShops(shops.map(shop => 
+      shop.id === updatedShop.id ? updatedShop : shop
+    ));
+    setEditingShop(null);
+    setSelectedShop(updatedShop); // Show updated shop details
+  };
+
+  if (editingShop) {
+    return (
+      <EditShop 
+        shop={editingShop}
+        onUpdateShop={handleUpdateShop}
+        onCancel={() => setEditingShop(null)}
+      />
+    );
+  }
+
   if (selectedShop) {
-    return <ShopDetails shop={selectedShop} onBack={() => setSelectedShop(null)} userLocation={userLocation} />;
+    return (
+      <ShopDetails 
+        shop={selectedShop} 
+        onBack={() => setSelectedShop(null)} 
+        onEditShop={setEditingShop}
+        userLocation={userLocation} 
+      />
+    );
   }
 
   if (showCreateShop) {
