@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { MapPin, Search, Plus, Store, Sparkles } from 'lucide-react';
 import Header from '../components/Header';
+import Navbar from '../components/Navbar';
+import ProfilePage from '../components/ProfilePage';
+import AboutPage from '../components/AboutPage';
+import ReviewsPage from '../components/ReviewsPage';
 import ShopCard from '../components/ShopCard';
 import ShopDetails from '../components/ShopDetails';
 import CreateShop from '../components/CreateShop';
@@ -18,6 +22,7 @@ const Index = () => {
   const [editingShop, setEditingShop] = useState<Shop | null>(null);
   const [showCreateShop, setShowCreateShop] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
+  const [currentPage, setCurrentPage] = useState<'home' | 'profile' | 'about' | 'reviews'>('home');
   const [locationPermission, setLocationPermission] = useState<'pending' | 'granted' | 'denied'>('pending');
   const [currentUserId] = useState<string>(() => {
     // Generate or retrieve user ID from localStorage
@@ -27,6 +32,9 @@ const Index = () => {
     localStorage.setItem('userId', newId);
     return newId;
   });
+
+  // Get user's shops
+  const userShops = shops.filter(shop => shop.createdBy === currentUserId);
 
   useEffect(() => {
     requestLocation();
@@ -94,34 +102,121 @@ const Index = () => {
     setSelectedShop(updatedShop); // Show updated shop details
   };
 
+  const handleDeleteShop = (shopId: string) => {
+    if (window.confirm('Are you sure you want to delete this shop?')) {
+      setShops(shops.filter(shop => shop.id !== shopId));
+    }
+  };
+
+  const handleNavigate = (page: 'home' | 'profile' | 'about' | 'reviews') => {
+    setCurrentPage(page);
+    setSelectedShop(null);
+    setEditingShop(null);
+    setShowCreateShop(false);
+    setShowSearch(false);
+  };
+
   if (editingShop) {
     return (
-      <EditShop 
-        shop={editingShop}
-        onUpdateShop={handleUpdateShop}
-        onCancel={() => setEditingShop(null)}
-      />
+      <div>
+        <Navbar 
+          currentUserId={currentUserId}
+          userShopsCount={userShops.length}
+          onNavigate={handleNavigate}
+          currentPage={currentPage}
+        />
+        <EditShop 
+          shop={editingShop}
+          onUpdateShop={handleUpdateShop}
+          onCancel={() => setEditingShop(null)}
+        />
+      </div>
     );
   }
 
   if (selectedShop) {
     return (
-      <ShopDetails 
-        shop={selectedShop} 
-        onBack={() => setSelectedShop(null)} 
-        onEditShop={selectedShop.createdBy === currentUserId ? setEditingShop : undefined}
-        userLocation={userLocation} 
-      />
+      <div>
+        <Navbar 
+          currentUserId={currentUserId}
+          userShopsCount={userShops.length}
+          onNavigate={handleNavigate}
+          currentPage={currentPage}
+        />
+        <ShopDetails 
+          shop={selectedShop} 
+          onBack={() => setSelectedShop(null)} 
+          onEditShop={selectedShop.createdBy === currentUserId ? setEditingShop : undefined}
+          userLocation={userLocation} 
+        />
+      </div>
     );
   }
 
   if (showCreateShop) {
     return (
-      <CreateShop 
-        onCreateShop={handleCreateShop} 
-        onCancel={() => setShowCreateShop(false)}
-        userLocation={userLocation}
-      />
+      <div>
+        <Navbar 
+          currentUserId={currentUserId}
+          userShopsCount={userShops.length}
+          onNavigate={handleNavigate}
+          currentPage={currentPage}
+        />
+        <CreateShop 
+          onCreateShop={handleCreateShop} 
+          onCancel={() => setShowCreateShop(false)}
+          userLocation={userLocation}
+        />
+      </div>
+    );
+  }
+
+  // Render different pages based on navigation
+  if (currentPage === 'profile') {
+    return (
+      <div>
+        <Navbar 
+          currentUserId={currentUserId}
+          userShopsCount={userShops.length}
+          onNavigate={handleNavigate}
+          currentPage={currentPage}
+        />
+        <ProfilePage
+          currentUserId={currentUserId}
+          userShops={userShops}
+          onEditShop={setEditingShop}
+          onDeleteShop={handleDeleteShop}
+          onViewShop={setSelectedShop}
+        />
+      </div>
+    );
+  }
+
+  if (currentPage === 'about') {
+    return (
+      <div>
+        <Navbar 
+          currentUserId={currentUserId}
+          userShopsCount={userShops.length}
+          onNavigate={handleNavigate}
+          currentPage={currentPage}
+        />
+        <AboutPage />
+      </div>
+    );
+  }
+
+  if (currentPage === 'reviews') {
+    return (
+      <div>
+        <Navbar 
+          currentUserId={currentUserId}
+          userShopsCount={userShops.length}
+          onNavigate={handleNavigate}
+          currentPage={currentPage}
+        />
+        <ReviewsPage />
+      </div>
     );
   }
 
@@ -134,7 +229,12 @@ const Index = () => {
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-cyan-400/10 to-blue-600/10 rounded-full blur-3xl"></div>
       </div>
 
-      <Header onSearch={() => setShowSearch(true)} />
+      <Navbar 
+        currentUserId={currentUserId}
+        userShopsCount={userShops.length}
+        onNavigate={handleNavigate}
+        currentPage={currentPage}
+      />
       
       {/* Enhanced Location Status */}
       <div className="px-4 py-4 bg-white/80 backdrop-blur-md border-b border-white/20 shadow-sm">
