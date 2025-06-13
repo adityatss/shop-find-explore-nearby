@@ -77,7 +77,7 @@ const Index = () => {
   };
 
   if (selectedShop) {
-    return <ShopDetails shop={selectedShop} onBack={() => setSelectedShop(null)} />;
+    return <ShopDetails shop={selectedShop} onBack={() => setSelectedShop(null)} userLocation={userLocation} />;
   }
 
   if (showCreateShop) {

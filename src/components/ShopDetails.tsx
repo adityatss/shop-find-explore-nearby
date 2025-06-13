@@ -1,19 +1,32 @@
 
 import React, { useState } from 'react';
-import { ArrowLeft, MapPin, Search, Package, Phone, Mail, Clock, User, Tag } from 'lucide-react';
-import { Shop, Item } from '../types';
+import { ArrowLeft, MapPin, Search, Package, Phone, Mail, Clock, User, Tag, Navigation } from 'lucide-react';
+import { Shop, Item, UserLocation } from '../types';
 
 interface ShopDetailsProps {
   shop: Shop;
   onBack: () => void;
+  userLocation?: UserLocation | null;
 }
 
-const ShopDetails: React.FC<ShopDetailsProps> = ({ shop, onBack }) => {
+const ShopDetails: React.FC<ShopDetailsProps> = ({ shop, onBack, userLocation }) => {
   const [searchTerm, setSearchTerm] = useState('');
   
   const filteredItems = shop.items.filter(item =>
     item.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const handleGetDirections = () => {
+    if (userLocation) {
+      // Open Google Maps with directions
+      const googleMapsUrl = `https://www.google.com/maps/dir/${userLocation.latitude},${userLocation.longitude}/${shop.location.latitude},${shop.location.longitude}`;
+      window.open(googleMapsUrl, '_blank');
+    } else {
+      // Fallback to just showing the shop location
+      const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${shop.location.latitude},${shop.location.longitude}`;
+      window.open(googleMapsUrl, '_blank');
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50">
@@ -58,6 +71,17 @@ const ShopDetails: React.FC<ShopDetailsProps> = ({ shop, onBack }) => {
                 <MapPin size={16} className="mr-1" />
                 <span>{shop.address}</span>
               </div>
+            </div>
+            
+            {/* Get Directions Button */}
+            <div className="absolute bottom-6 right-6">
+              <button
+                onClick={handleGetDirections}
+                className="flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors shadow-lg"
+              >
+                <Navigation size={18} className="mr-2" />
+                Get Directions
+              </button>
             </div>
           </div>
           
