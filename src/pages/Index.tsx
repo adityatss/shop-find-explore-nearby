@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { MapPin, Search, Plus, Store, Sparkles } from 'lucide-react';
+import { MapPin, Search, Plus, Store, Sparkles, ShoppingBag, Heart, Users } from 'lucide-react';
 import Header from '../components/Header';
 import Navbar from '../components/Navbar';
 import ProfilePage from '../components/ProfilePage';
@@ -123,6 +123,7 @@ const Index = () => {
           currentUserId={currentUserId}
           userShopsCount={userShops.length}
           onNavigate={handleNavigate}
+          onCreateShop={() => setShowCreateShop(true)}
           currentPage={currentPage}
         />
         <EditShop 
@@ -141,6 +142,7 @@ const Index = () => {
           currentUserId={currentUserId}
           userShopsCount={userShops.length}
           onNavigate={handleNavigate}
+          onCreateShop={() => setShowCreateShop(true)}
           currentPage={currentPage}
         />
         <ShopDetails 
@@ -160,6 +162,7 @@ const Index = () => {
           currentUserId={currentUserId}
           userShopsCount={userShops.length}
           onNavigate={handleNavigate}
+          onCreateShop={() => setShowCreateShop(true)}
           currentPage={currentPage}
         />
         <CreateShop 
@@ -179,6 +182,7 @@ const Index = () => {
           currentUserId={currentUserId}
           userShopsCount={userShops.length}
           onNavigate={handleNavigate}
+          onCreateShop={() => setShowCreateShop(true)}
           currentPage={currentPage}
         />
         <ProfilePage
@@ -199,6 +203,7 @@ const Index = () => {
           currentUserId={currentUserId}
           userShopsCount={userShops.length}
           onNavigate={handleNavigate}
+          onCreateShop={() => setShowCreateShop(true)}
           currentPage={currentPage}
         />
         <AboutPage />
@@ -213,6 +218,7 @@ const Index = () => {
           currentUserId={currentUserId}
           userShopsCount={userShops.length}
           onNavigate={handleNavigate}
+          onCreateShop={() => setShowCreateShop(true)}
           currentPage={currentPage}
         />
         <ReviewsPage />
@@ -222,7 +228,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 relative overflow-hidden">
-      {/* Background decoration */}
+      {/* Enhanced Background decoration */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-blue-400/20 to-purple-600/20 rounded-full blur-3xl"></div>
         <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-tr from-purple-400/20 to-pink-600/20 rounded-full blur-3xl"></div>
@@ -233,6 +239,7 @@ const Index = () => {
         currentUserId={currentUserId}
         userShopsCount={userShops.length}
         onNavigate={handleNavigate}
+        onCreateShop={() => setShowCreateShop(true)}
         currentPage={currentPage}
       />
       
@@ -270,15 +277,15 @@ const Index = () => {
       </div>
 
       <main className="max-w-6xl mx-auto px-4 py-12 relative z-10">
-        {/* Enhanced Hero Section */}
-        <div className="text-center mb-16 animate-fade-in">
-          <div className="flex items-center justify-center mb-6">
-            <div className="p-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl shadow-2xl">
-              <Sparkles size={32} className="text-white" />
+        {/* Enhanced Hero Section with Images */}
+        <div className="text-center mb-20 animate-fade-in">
+          <div className="flex items-center justify-center mb-8">
+            <div className="p-6 bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl shadow-2xl">
+              <Sparkles size={48} className="text-white" />
             </div>
           </div>
           
-          <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-gray-900 via-blue-800 to-purple-800 bg-clip-text text-transparent mb-6 leading-tight">
+          <h1 className="text-6xl md:text-8xl font-bold bg-gradient-to-r from-gray-900 via-blue-800 to-purple-800 bg-clip-text text-transparent mb-8 leading-tight">
             Discover Local
             <br />
             <span className="text-transparent bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text">
@@ -286,28 +293,81 @@ const Index = () => {
             </span>
           </h1>
           
-          <p className="text-xl md:text-2xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-2xl md:text-3xl text-gray-600 mb-12 max-w-4xl mx-auto leading-relaxed">
             Find amazing products and services in your neighborhood with just a few clicks
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-            <button
-              onClick={() => setShowSearch(true)}
-              className="group relative inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-lg font-semibold rounded-2xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-2xl hover:shadow-3xl transform hover:scale-105 hover:-translate-y-1"
-            >
-              <Search size={24} className="mr-3 group-hover:rotate-12 transition-transform duration-300" />
-              Search Shops & Products
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-600 to-purple-600 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
-            </button>
+          {/* Enhanced Search Section */}
+          <div className="max-w-4xl mx-auto mb-16">
+            <div className="bg-white/90 backdrop-blur-md rounded-3xl shadow-2xl p-8 border border-white/20">
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">What are you looking for?</h2>
+              
+              <button
+                onClick={() => setShowSearch(true)}
+                className="group relative inline-flex items-center w-full max-w-2xl mx-auto px-8 py-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-xl font-semibold rounded-2xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-2xl hover:shadow-3xl transform hover:scale-105 hover:-translate-y-2"
+              >
+                <Search size={32} className="mr-4 group-hover:rotate-12 transition-transform duration-300" />
+                <span className="flex-1 text-left">Search Shops & Products...</span>
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-600 to-purple-600 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+              </button>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+                <div className="flex items-center space-x-3 p-4 bg-blue-50 rounded-xl">
+                  <ShoppingBag size={24} className="text-blue-600" />
+                  <span className="text-gray-700 font-medium">Browse Products</span>
+                </div>
+                <div className="flex items-center space-x-3 p-4 bg-purple-50 rounded-xl">
+                  <Store size={24} className="text-purple-600" />
+                  <span className="text-gray-700 font-medium">Find Local Shops</span>
+                </div>
+                <div className="flex items-center space-x-3 p-4 bg-green-50 rounded-xl">
+                  <Heart size={24} className="text-green-600" />
+                  <span className="text-gray-700 font-medium">Save Favorites</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Feature Images Section */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            <div className="relative group">
+              <img 
+                src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=300&fit=crop" 
+                alt="Local shopping" 
+                className="w-full h-64 object-cover rounded-2xl shadow-lg group-hover:shadow-2xl transition-all duration-300 transform group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent rounded-2xl"></div>
+              <div className="absolute bottom-4 left-4 text-white">
+                <h3 className="text-xl font-bold">Local Shopping</h3>
+                <p className="text-sm opacity-90">Discover unique products</p>
+              </div>
+            </div>
             
-            <button
-              onClick={() => setShowCreateShop(true)}
-              className="group relative inline-flex items-center px-8 py-4 bg-white text-gray-800 text-lg font-semibold rounded-2xl border-2 border-gray-200 hover:border-purple-300 hover:bg-purple-50 transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105 hover:-translate-y-1"
-            >
-              <Plus size={24} className="mr-3 group-hover:rotate-90 transition-transform duration-300" />
-              Create Your Shop
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-5 transition-opacity duration-300"></div>
-            </button>
+            <div className="relative group">
+              <img 
+                src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=300&fit=crop" 
+                alt="Community" 
+                className="w-full h-64 object-cover rounded-2xl shadow-lg group-hover:shadow-2xl transition-all duration-300 transform group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent rounded-2xl"></div>
+              <div className="absolute bottom-4 left-4 text-white">
+                <h3 className="text-xl font-bold">Community First</h3>
+                <p className="text-sm opacity-90">Support local businesses</p>
+              </div>
+            </div>
+            
+            <div className="relative group">
+              <img 
+                src="https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=400&h=300&fit=crop" 
+                alt="Easy discovery" 
+                className="w-full h-64 object-cover rounded-2xl shadow-lg group-hover:shadow-2xl transition-all duration-300 transform group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent rounded-2xl"></div>
+              <div className="absolute bottom-4 left-4 text-white">
+                <h3 className="text-xl font-bold">Easy Discovery</h3>
+                <p className="text-sm opacity-90">Find what you need quickly</p>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -319,10 +379,10 @@ const Index = () => {
                 <Store size={28} className="text-white" />
               </div>
               <div>
-                <h2 className="text-3xl font-bold text-gray-900">
+                <h2 className="text-4xl font-bold text-gray-900">
                   {locationPermission === 'granted' ? 'Nearby Shops' : 'Featured Shops'}
                 </h2>
-                <p className="text-gray-600">
+                <p className="text-xl text-gray-600">
                   {locationPermission === 'granted' 
                     ? 'Discover shops in your area' 
                     : 'Explore local businesses'
@@ -333,32 +393,24 @@ const Index = () => {
           </div>
           
           {(locationPermission === 'granted' ? nearbyShops : shops).length === 0 ? (
-            <div className="text-center py-20">
-              <div className="relative mb-8">
+            <div className="text-center py-32">
+              <div className="relative mb-12">
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-32 h-32 bg-gradient-to-r from-blue-100 to-purple-100 rounded-full"></div>
+                  <div className="w-40 h-40 bg-gradient-to-r from-blue-100 to-purple-100 rounded-full"></div>
                 </div>
-                <Store size={64} className="relative z-10 mx-auto text-gray-400" />
+                <Store size={80} className="relative z-10 mx-auto text-gray-400" />
               </div>
               
-              <h3 className="text-2xl font-bold text-gray-800 mb-4">
+              <h3 className="text-3xl font-bold text-gray-800 mb-6">
                 {locationPermission === 'granted' ? 'No nearby shops found' : 'No shops available yet'}
               </h3>
               
-              <p className="text-gray-600 mb-8 max-w-md mx-auto">
+              <p className="text-xl text-gray-600 mb-12 max-w-lg mx-auto">
                 {locationPermission === 'granted' 
                   ? 'Be the first to create a shop in your area and help build the community!'
                   : 'Start building your local marketplace by creating the first shop!'
                 }
               </p>
-              
-              <button
-                onClick={() => setShowCreateShop(true)}
-                className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
-              >
-                <Plus size={20} className="mr-2" />
-                Create First Shop
-              </button>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
