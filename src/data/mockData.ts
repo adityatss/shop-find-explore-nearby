@@ -1,5 +1,5 @@
 
-import { Shop, Hostel } from '../types';
+import { Shop } from '../types';
 
 export const mockShops: Shop[] = [
   {
@@ -107,64 +107,10 @@ export const mockShops: Shop[] = [
       { id: 'item30', name: 'Indoor Plants', quantity: 30 },
       { id: 'item31', name: 'Garden Tools', quantity: 15 },
       { id: 'item32', name: 'Decorative Vases', quantity: 20 },
-      { id: 'item33', name: 'Outdoor Furniture', quantity: 5 },
+      { id: 'item33', name: 'Outdoor furniture', quantity: 5 },
       { id: 'item34', name: 'Fertilizer', quantity: 25 },
       { id: 'item35', name: 'Flower Seeds', quantity: 40 },
       { id: 'item36', name: 'Watering Cans', quantity: 12 },
     ]
-  }
-];
-
-export const mockHostels: Hostel[] = [
-  {
-    id: 'h1',
-    name: 'Urban Explorer Hostel',
-    description: 'A modern hostel in the heart of the city, perfect for backpackers and budget travelers. Clean facilities and friendly atmosphere.',
-    address: '234 Backpacker Ave, Downtown',
-    location: { latitude: 40.7250, longitude: -74.0050 },
-    posterUrl: 'https://images.unsplash.com/photo-1555854877-bab0e536b1b4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2069&q=80',
-    owner: 'Alex Rodriguez',
-    phone: '+1 (555) 111-2222',
-    email: 'info@urbanexplorer.com',
-    checkInTime: '3:00 PM',
-    checkOutTime: '11:00 AM',
-    amenities: ['Free WiFi', 'Shared Kitchen', 'Lounge Area', 'Laundry', '24/7 Reception'],
-    pricePerNight: 35,
-    availableRooms: 12,
-    rating: 4.2
-  },
-  {
-    id: 'h2',
-    name: 'Cozy Corner Hostel',
-    description: 'A warm and welcoming hostel with a homely atmosphere. Great for meeting fellow travelers and exploring the local culture.',
-    address: '567 Traveler Street, Cultural District',
-    location: { latitude: 40.7400, longitude: -73.9900 },
-    posterUrl: 'https://images.unsplash.com/photo-1564501049412-61c2a3083791?ixlib=rb-4.0.3&auto=format&fit=crop&w=2073&q=80',
-    owner: 'Emma Thompson',
-    phone: '+1 (555) 333-4444',
-    email: 'hello@cozycorner.com',
-    checkInTime: '2:00 PM',
-    checkOutTime: '10:00 AM',
-    amenities: ['Free Breakfast', 'WiFi', 'Common Room', 'Bicycle Rental', 'City Maps'],
-    pricePerNight: 28,
-    availableRooms: 8,
-    rating: 4.5
-  },
-  {
-    id: 'h3',
-    name: 'Adventure Base Hostel',
-    description: 'Perfect base for adventurous travelers. Organized tours, equipment rental, and connections to outdoor activities.',
-    address: '890 Adventure Lane, Explorer Quarter',
-    location: { latitude: 40.7600, longitude: -73.9800 },
-    posterUrl: 'https://images.unsplash.com/photo-1571896349842-33c89eebbaaf?ixlib=rb-4.0.3&auto=format&fit=crop&w=2080&q=80',
-    owner: 'Jake Wilson',
-    phone: '+1 (555) 555-6666',
-    email: 'contact@adventurebase.com',
-    checkInTime: '4:00 PM',
-    checkOutTime: '12:00 PM',
-    amenities: ['Tour Booking', 'Equipment Storage', 'Free WiFi', 'Shared Kitchen', 'Game Room'],
-    pricePerNight: 42,
-    availableRooms: 15,
-    rating: 4.0
   }
 ];
