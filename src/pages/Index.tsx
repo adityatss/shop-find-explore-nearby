@@ -108,6 +108,12 @@ const Index = () => {
     }
   };
 
+  const handleToggleShopStatus = (shopId: string, isOpen: boolean) => {
+    setShops(shops.map(shop => 
+      shop.id === shopId ? { ...shop, isOpen } : shop
+    ));
+  };
+
   const handleNavigate = (page: 'home' | 'profile' | 'about' | 'reviews') => {
     setCurrentPage(page);
     setSelectedShop(null);
@@ -191,6 +197,7 @@ const Index = () => {
           onEditShop={setEditingShop}
           onDeleteShop={handleDeleteShop}
           onViewShop={setSelectedShop}
+          onToggleShopStatus={handleToggleShopStatus}
         />
       </div>
     );

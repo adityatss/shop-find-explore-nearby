@@ -24,6 +24,7 @@ export interface Shop {
   openingHours: string;
   category: string;
   createdBy?: string; // Track who created this shop
+  isOpen?: boolean; // Track if shop is currently open/closed
 }
 
 export interface User {

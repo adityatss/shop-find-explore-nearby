@@ -66,6 +66,12 @@ const ShopDetails: React.FC<ShopDetailsProps> = ({ shop, onBack, onEditShop, use
                 <span className="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full text-sm">
                   {shop.category}
                 </span>
+                <div className="flex items-center ml-3 bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full">
+                  <div className={`w-2 h-2 rounded-full mr-2 ${shop.isOpen !== false ? 'bg-green-400' : 'bg-red-400'}`}></div>
+                  <span className="text-sm font-medium">
+                    {shop.isOpen !== false ? 'Open Now' : 'Currently Closed'}
+                  </span>
+                </div>
               </div>
               <h1 className="text-3xl font-bold mb-2">{shop.name}</h1>
               <div className="flex items-center">
@@ -95,6 +101,16 @@ const ShopDetails: React.FC<ShopDetailsProps> = ({ shop, onBack, onEditShop, use
               </button>
             </div>
           </div>
+          
+          {/* Shop Status Alert */}
+          {shop.isOpen === false && (
+            <div className="bg-red-50 border-l-4 border-red-400 p-4">
+              <div className="flex items-center">
+                <div className="w-3 h-3 bg-red-400 rounded-full mr-3"></div>
+                <p className="text-red-700 font-medium">This shop is currently closed</p>
+              </div>
+            </div>
+          )}
           
           <div className="p-6">
             <p className="text-gray-600 text-lg leading-relaxed mb-6">

@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { User, Store, MapPin, Calendar, Edit, Trash2 } from 'lucide-react';
+import { Switch } from './ui/switch';
 import { Shop } from '../types';
 
 interface ProfilePageProps {
@@ -9,6 +10,7 @@ interface ProfilePageProps {
   onEditShop: (shop: Shop) => void;
   onDeleteShop: (shopId: string) => void;
   onViewShop: (shop: Shop) => void;
+  onToggleShopStatus?: (shopId: string, isOpen: boolean) => void;
 }
 
 const ProfilePage: React.FC<ProfilePageProps> = ({ 
@@ -16,7 +18,8 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
   userShops, 
   onEditShop, 
   onDeleteShop, 
-  onViewShop 
+  onViewShop,
+  onToggleShopStatus
 }) => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
@@ -66,11 +69,17 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                         <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
                           {shop.category}
                         </span>
+                        <div className="flex items-center space-x-2">
+                          <span className={`w-2 h-2 rounded-full ${shop.isOpen !== false ? 'bg-green-500' : 'bg-red-500'}`}></span>
+                          <span className={`text-sm font-medium ${shop.isOpen !== false ? 'text-green-700' : 'text-red-700'}`}>
+                            {shop.isOpen !== false ? 'Open' : 'Closed'}
+                          </span>
+                        </div>
                       </div>
                       
                       <p className="text-gray-600 mb-4 line-clamp-2">{shop.description}</p>
                       
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm mb-4">
                         <div className="flex items-center space-x-2">
                           <MapPin size={16} className="text-gray-500" />
                           <span className="text-gray-700">{shop.address}</span>
@@ -78,6 +87,23 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                         <div className="flex items-center space-x-2">
                           <Store size={16} className="text-gray-500" />
                           <span className="text-gray-700">{shop.items.length} items</span>
+                        </div>
+                      </div>
+
+                      {/* Shop Status Toggle */}
+                      <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                        <span className="text-sm font-medium text-gray-700">Shop Status:</span>
+                        <div className="flex items-center space-x-2">
+                          <span className={`text-sm ${shop.isOpen !== false ? 'text-gray-500' : 'text-gray-900 font-medium'}`}>
+                            Closed
+                          </span>
+                          <Switch
+                            checked={shop.isOpen !== false}
+                            onCheckedChange={(checked) => onToggleShopStatus?.(shop.id, checked)}
+                          />
+                          <span className={`text-sm ${shop.isOpen !== false ? 'text-gray-900 font-medium' : 'text-gray-500'}`}>
+                            Open
+                          </span>
                         </div>
                       </div>
                     </div>
