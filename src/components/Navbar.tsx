@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { User, Store, Home, Info, Star, Plus } from 'lucide-react';
+import { User, Store, Home, Info, Star, Plus, Gem } from 'lucide-react'; // Add Gem icon
 
 interface NavbarProps {
   currentUserId: string;
@@ -23,10 +23,12 @@ const Navbar: React.FC<NavbarProps> = ({ currentUserId, userShopsCount, onNaviga
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center space-x-2">
-            <div className="p-2 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg">
+            <div className="p-2 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
               <Store size={24} className="text-white" />
             </div>
-            <h1 className="text-xl font-bold text-gray-900">ShopExplore</h1>
+            {/* Stylish symbol beside brand name */}
+            <Gem size={22} className="text-purple-500 ml-1 drop-shadow-glow animate-pulse" />
+            <h1 className="text-xl font-bold text-gray-900 ml-2">ShopExplore</h1>
           </div>
           
           <div className="flex items-center space-x-2">

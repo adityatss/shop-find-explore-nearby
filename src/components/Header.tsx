@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Search, MapPin, Sparkles } from 'lucide-react';
+import { Search, MapPin, Gem } from 'lucide-react';
 
 interface HeaderProps {
   onSearch: () => void;
@@ -23,7 +23,8 @@ const Header: React.FC<HeaderProps> = ({ onSearch }) => {
                 <h1 className="text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
                   ShopExplore
                 </h1>
-                <Sparkles size={20} className="text-purple-600" />
+                {/* Stylish symbol */}
+                <Gem size={20} className="text-purple-500 drop-shadow-glow animate-pulse" />
               </div>
               <p className="text-sm text-gray-600 font-medium">Find • Explore • Shop</p>
             </div>

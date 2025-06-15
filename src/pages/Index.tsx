@@ -404,6 +404,74 @@ const Index = () => {
           </div>
         </div>
 
+        {/* Stylish About Section */}
+        <section
+          className="relative mb-20 max-w-3xl mx-auto rounded-3xl bg-gradient-to-tr from-white to-blue-50 shadow-xl p-1 overflow-hidden group"
+        >
+          <div className="absolute inset-0 pointer-events-none z-0">
+            <div className="absolute top-0 left-0 w-56 h-56 bg-gradient-to-br from-purple-200/60 to-blue-200/60 rounded-full blur-3xl opacity-90"></div>
+            <div className="absolute bottom-0 right-0 w-40 h-40 bg-gradient-to-tr from-blue-100/40 to-purple-300/50 rounded-full blur-2xl opacity-70"></div>
+          </div>
+          <div className="relative z-10 px-8 py-10 flex flex-col items-center text-center">
+            <div className="mb-6 flex items-center justify-center gap-3">
+              <span className="inline-flex p-3 rounded-full bg-gradient-to-r from-blue-400 to-purple-500 shadow-xl">
+                <span className="flex items-center justify-center">
+                  <svg width="32" height="32" fill="none" viewBox="0 0 24 24" className="text-white">
+                    <defs>
+                      <linearGradient id="about-gradient" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
+                        <stop stopColor="#8b5cf6"/>
+                        <stop offset="1" stopColor="#60a5fa"/>
+                      </linearGradient>
+                    </defs>
+                    <path
+                      d="M12 3L20.4545 8V16L12 21L3.5455 16V8L12 3Z"
+                      stroke="url(#about-gradient)"
+                      strokeWidth="1.5"
+                      strokeLinejoin="round"
+                      fill="url(#about-gradient)"
+                      opacity={0.7}
+                    />
+                  </svg>
+                </span>
+              </span>
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-800 bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
+                About ShopExplore
+              </h2>
+            </div>
+            <p className="text-lg text-gray-600 font-medium mb-6 leading-relaxed">
+              ShopExplore is your modern gateway to discovering the best local shops, unique products, and passionate small businesses around you.<br className="hidden md:block"/>
+              Our mission is to empower community commerce and help you connect with neighborhood treasures in a few effortless taps.
+            </p>
+            <ul className="flex flex-col sm:flex-row gap-4 sm:gap-8 justify-center text-left w-full max-w-xl mx-auto">
+              <li className="flex items-center gap-3 bg-white/60 rounded-2xl px-5 py-3 shadow hover:shadow-md transition-all">
+                <span className="bg-blue-100 p-2 rounded-full">
+                  <svg className="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10" stroke="currentColor" />
+                    <path d="M12 8v4l2 2" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </span>
+                <span className="text-base text-gray-700 font-medium">Find local shops near you</span>
+              </li>
+              <li className="flex items-center gap-3 bg-white/60 rounded-2xl px-5 py-3 shadow hover:shadow-md transition-all">
+                <span className="bg-purple-100 p-2 rounded-full">
+                  <svg className="w-5 h-5 text-purple-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                    <path d="M3 12h3m0 0a6 6 0 1112 0m-6-6v6m0 6v6" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </span>
+                <span className="text-base text-gray-700 font-medium">Support your community & creators</span>
+              </li>
+              <li className="flex items-center gap-3 bg-white/60 rounded-2xl px-5 py-3 shadow hover:shadow-md transition-all">
+                <span className="bg-pink-100 p-2 rounded-full">
+                  <svg className="w-5 h-5 text-pink-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                    <path d="M13 16h-1v-4h-1m1-4h.01" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </span>
+                <span className="text-base text-gray-700 font-medium">Quick & easy shopping experiences</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
         {/* Enhanced Shops Section */}
         <div className="mb-8">
           <div className="flex items-center justify-between mb-8">
