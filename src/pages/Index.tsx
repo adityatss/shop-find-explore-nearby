@@ -294,7 +294,7 @@ const Index = () => {
         currentPage={currentPage}
       />
       
-      {/* Enhanced Location Status */}
+      {/* Location Status & Track Button */}
       <div className="px-4 py-4 bg-white/80 backdrop-blur-md border-b border-white/20 shadow-sm">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <div className="flex items-center space-x-3">
@@ -328,7 +328,7 @@ const Index = () => {
       </div>
 
       <main className="max-w-6xl mx-auto px-4 py-12 relative z-10">
-        {/* Hero Section with Normal Font Sizes */}
+        {/* Hero Section */}
         <div className="text-center mb-20 animate-fade-in">
           <div className="flex items-center justify-center mb-8">
             <div className="p-6 bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl shadow-2xl">
@@ -348,7 +348,7 @@ const Index = () => {
             Find amazing products and services in your neighborhood with just a few clicks
           </p>
           
-          {/* Search Section - Normal Size */}
+          {/* Search Section */}
           <div className="max-w-2xl mx-auto mb-16">
             <div className="bg-white/90 backdrop-blur-md rounded-2xl shadow-xl p-8 border border-white/20">
               <button
@@ -361,7 +361,7 @@ const Index = () => {
             </div>
           </div>
 
-          {/* Feature Images Section */}
+          {/* Features Images Section */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
             <div className="relative group">
               <img 
@@ -404,69 +404,26 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Stylish About Section */}
-        <section
-          className="relative mb-20 max-w-3xl mx-auto rounded-3xl bg-gradient-to-tr from-white to-blue-50 shadow-xl p-1 overflow-hidden group"
-        >
-          <div className="absolute inset-0 pointer-events-none z-0">
-            <div className="absolute top-0 left-0 w-56 h-56 bg-gradient-to-br from-purple-200/60 to-blue-200/60 rounded-full blur-3xl opacity-90"></div>
-            <div className="absolute bottom-0 right-0 w-40 h-40 bg-gradient-to-tr from-blue-100/40 to-purple-300/50 rounded-full blur-2xl opacity-70"></div>
-          </div>
-          <div className="relative z-10 px-8 py-10 flex flex-col items-center text-center">
-            <div className="mb-6 flex items-center justify-center gap-3">
-              <span className="inline-flex p-3 rounded-full bg-gradient-to-r from-blue-400 to-purple-500 shadow-xl">
-                <span className="flex items-center justify-center">
-                  <svg width="32" height="32" fill="none" viewBox="0 0 24 24" className="text-white">
-                    <defs>
-                      <linearGradient id="about-gradient" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
-                        <stop stopColor="#8b5cf6"/>
-                        <stop offset="1" stopColor="#60a5fa"/>
-                      </linearGradient>
-                    </defs>
-                    <path
-                      d="M12 3L20.4545 8V16L12 21L3.5455 16V8L12 3Z"
-                      stroke="url(#about-gradient)"
-                      strokeWidth="1.5"
-                      strokeLinejoin="round"
-                      fill="url(#about-gradient)"
-                      opacity={0.7}
-                    />
-                  </svg>
-                </span>
-              </span>
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-800 bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
-                About ShopExplore
-              </h2>
-            </div>
-            <p className="text-lg text-gray-600 font-medium mb-6 leading-relaxed">
-              ShopExplore is your modern gateway to discovering the best local shops, unique products, and passionate small businesses around you.<br className="hidden md:block"/>
+        {/* About Section (reverted to previous style) */}
+        <section className="mb-16">
+          <div className="flex flex-col items-center text-center">
+            <h2 className="text-3xl font-bold mb-4 text-gray-900">About ShopExplore</h2>
+            <p className="text-lg text-gray-700 mb-6 max-w-2xl">
+              ShopExplore is your modern gateway to discovering the best local shops, unique products, and passionate small businesses around you.<br />
               Our mission is to empower community commerce and help you connect with neighborhood treasures in a few effortless taps.
             </p>
-            <ul className="flex flex-col sm:flex-row gap-4 sm:gap-8 justify-center text-left w-full max-w-xl mx-auto">
-              <li className="flex items-center gap-3 bg-white/60 rounded-2xl px-5 py-3 shadow hover:shadow-md transition-all">
-                <span className="bg-blue-100 p-2 rounded-full">
-                  <svg className="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                    <circle cx="12" cy="12" r="10" stroke="currentColor" />
-                    <path d="M12 8v4l2 2" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </span>
-                <span className="text-base text-gray-700 font-medium">Find local shops near you</span>
+            <ul className="flex flex-col md:flex-row gap-3 md:gap-8 justify-center mb-2 list-none p-0">
+              <li className="flex items-center gap-2 text-base text-blue-600 font-medium">
+                <span className="inline-block w-2 h-2 rounded-full bg-blue-400"></span>
+                Find local shops near you
               </li>
-              <li className="flex items-center gap-3 bg-white/60 rounded-2xl px-5 py-3 shadow hover:shadow-md transition-all">
-                <span className="bg-purple-100 p-2 rounded-full">
-                  <svg className="w-5 h-5 text-purple-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                    <path d="M3 12h3m0 0a6 6 0 1112 0m-6-6v6m0 6v6" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </span>
-                <span className="text-base text-gray-700 font-medium">Support your community & creators</span>
+              <li className="flex items-center gap-2 text-base text-purple-600 font-medium">
+                <span className="inline-block w-2 h-2 rounded-full bg-purple-400"></span>
+                Support your community & creators
               </li>
-              <li className="flex items-center gap-3 bg-white/60 rounded-2xl px-5 py-3 shadow hover:shadow-md transition-all">
-                <span className="bg-pink-100 p-2 rounded-full">
-                  <svg className="w-5 h-5 text-pink-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                    <path d="M13 16h-1v-4h-1m1-4h.01" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </span>
-                <span className="text-base text-gray-700 font-medium">Quick & easy shopping experiences</span>
+              <li className="flex items-center gap-2 text-base text-pink-500 font-medium">
+                <span className="inline-block w-2 h-2 rounded-full bg-pink-400"></span>
+                Quick & easy shopping experiences
               </li>
             </ul>
           </div>
