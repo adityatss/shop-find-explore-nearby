@@ -24,6 +24,7 @@ const Index = () => {
   const [showSearch, setShowSearch] = useState(false);
   const [currentPage, setCurrentPage] = useState<'home' | 'profile' | 'about' | 'reviews'>('home');
   const [locationPermission, setLocationPermission] = useState<'pending' | 'granted' | 'denied'>('pending');
+  const [watchId, setWatchId] = useState<number | null>(null);
   const [currentUserId] = useState<string>(() => {
     // Generate or retrieve user ID from localStorage
     const existingId = localStorage.getItem('userId');
@@ -37,7 +38,14 @@ const Index = () => {
   const userShops = shops.filter(shop => shop.createdBy === currentUserId);
 
   useEffect(() => {
-    requestLocation();
+    startLocationTracking();
+    
+    // Cleanup function to stop watching location when component unmounts
+    return () => {
+      if (watchId !== null) {
+        navigator.geolocation.clearWatch(watchId);
+      }
+    };
   }, []);
 
   useEffect(() => {
@@ -46,27 +54,63 @@ const Index = () => {
     }
   }, [userLocation, shops]);
 
-  const requestLocation = () => {
+  const startLocationTracking = () => {
     if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          setUserLocation({
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude
-          });
-          setLocationPermission('granted');
-        },
-        (error) => {
-          console.error('Location access denied:', error);
-          setLocationPermission('denied');
-          // Use default location (e.g., city center)
-          setUserLocation({
-            latitude: 40.7128,
-            longitude: -74.0060
-          });
+      const options = {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 30000 // Cache location for 30 seconds
+      };
+
+      const successCallback = (position: GeolocationPosition) => {
+        const newLocation = {
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude
+        };
+        
+        // Only update if location changed significantly (more than ~10 meters)
+        if (!userLocation || 
+            calculateDistance(
+              userLocation.latitude, 
+              userLocation.longitude, 
+              newLocation.latitude, 
+              newLocation.longitude
+            ) > 0.01) {
+          setUserLocation(newLocation);
+          console.log('Location updated:', newLocation);
         }
+        
+        setLocationPermission('granted');
+      };
+
+      const errorCallback = (error: GeolocationPositionError) => {
+        console.error('Location tracking error:', error);
+        setLocationPermission('denied');
+        // Use default location (e.g., city center)
+        setUserLocation({
+          latitude: 40.7128,
+          longitude: -74.0060
+        });
+      };
+
+      // Start watching position for real-time updates
+      const id = navigator.geolocation.watchPosition(
+        successCallback,
+        errorCallback,
+        options
       );
+      
+      setWatchId(id);
     }
+  };
+
+  const requestLocation = () => {
+    // Stop current watching if any
+    if (watchId !== null) {
+      navigator.geolocation.clearWatch(watchId);
+    }
+    // Restart location tracking
+    startLocationTracking();
   };
 
   const filterNearbyShops = () => {
@@ -266,7 +310,7 @@ const Index = () => {
               </span>
               <p className="text-xs text-gray-500">
                 {locationPermission === 'granted' 
-                  ? 'Within 2km radius'
+                  ? 'Live tracking • Within 2km radius'
                   : 'Enable location for personalized results'
                 }
               </p>
