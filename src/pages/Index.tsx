@@ -11,11 +11,10 @@ import CreateShop from '../components/CreateShop';
 import EditShop from '../components/EditShop';
 import SearchModal from '../components/SearchModal';
 import { Shop, UserLocation } from '../types';
-import { mockShops } from '../data/mockData';
+import { useShopsApi } from '../hooks/useShopsApi';
 import { calculateDistance } from '../utils/distance';
 
 const Index = () => {
-  const [shops, setShops] = useState<Shop[]>(mockShops);
   const [userLocation, setUserLocation] = useState<UserLocation | null>(null);
   const [nearbyShops, setNearbyShops] = useState<Shop[]>([]);
   const [selectedShop, setSelectedShop] = useState<Shop | null>(null);
@@ -33,6 +32,18 @@ const Index = () => {
     localStorage.setItem('userId', newId);
     return newId;
   });
+
+  // Use the new API hook
+  const { 
+    shops, 
+    isLoading, 
+    error, 
+    useApi, 
+    loadNearbyShops, 
+    createShop, 
+    updateShop, 
+    deleteShop 
+  } = useShopsApi(currentUserId);
 
   // Get user's shops
   const userShops = shops.filter(shop => shop.createdBy === currentUserId);
@@ -113,49 +124,83 @@ const Index = () => {
     startLocationTracking();
   };
 
-  const filterNearbyShops = () => {
+  const filterNearbyShops = async () => {
     if (!userLocation) return;
     
-    const nearby = shops.filter(shop => {
-      const distance = calculateDistance(
-        userLocation.latitude,
-        userLocation.longitude,
-        shop.location.latitude,
-        shop.location.longitude
-      );
-      return distance <= 2; // 2km radius
-    });
-    setNearbyShops(nearby);
-  };
-
-  const handleCreateShop = (newShop: Omit<Shop, 'id'>) => {
-    const shop: Shop = {
-      ...newShop,
-      id: Date.now().toString(),
-      createdBy: currentUserId // Add ownership
-    };
-    setShops([...shops, shop]);
-    setShowCreateShop(false);
-  };
-
-  const handleUpdateShop = (updatedShop: Shop) => {
-    setShops(shops.map(shop => 
-      shop.id === updatedShop.id ? updatedShop : shop
-    ));
-    setEditingShop(null);
-    setSelectedShop(updatedShop); // Show updated shop details
-  };
-
-  const handleDeleteShop = (shopId: string) => {
-    if (window.confirm('Are you sure you want to delete this shop?')) {
-      setShops(shops.filter(shop => shop.id !== shopId));
+    if (useApi) {
+      try {
+        const nearby = await loadNearbyShops(userLocation);
+        setNearbyShops(nearby);
+      } catch (err) {
+        console.error('Error loading nearby shops:', err);
+        // Fallback to local filtering
+        const nearby = shops.filter(shop => {
+          const distance = calculateDistance(
+            userLocation.latitude,
+            userLocation.longitude,
+            shop.location.latitude,
+            shop.location.longitude
+          );
+          return distance <= 2; // 2km radius
+        });
+        setNearbyShops(nearby);
+      }
+    } else {
+      const nearby = shops.filter(shop => {
+        const distance = calculateDistance(
+          userLocation.latitude,
+          userLocation.longitude,
+          shop.location.latitude,
+          shop.location.longitude
+        );
+        return distance <= 2; // 2km radius
+      });
+      setNearbyShops(nearby);
     }
   };
 
-  const handleToggleShopStatus = (shopId: string, isOpen: boolean) => {
-    setShops(shops.map(shop => 
-      shop.id === shopId ? { ...shop, isOpen } : shop
-    ));
+  const handleCreateShop = async (newShop: Omit<Shop, 'id'>) => {
+    try {
+      await createShop(newShop);
+      setShowCreateShop(false);
+    } catch (err) {
+      console.error('Error creating shop:', err);
+      // Could add toast notification here
+    }
+  };
+
+  const handleUpdateShop = async (updatedShop: Shop) => {
+    try {
+      const updated = await updateShop(updatedShop);
+      setEditingShop(null);
+      setSelectedShop(updated); // Show updated shop details
+    } catch (err) {
+      console.error('Error updating shop:', err);
+      // Could add toast notification here
+    }
+  };
+
+  const handleDeleteShop = async (shopId: string) => {
+    if (window.confirm('Are you sure you want to delete this shop?')) {
+      try {
+        await deleteShop(shopId);
+      } catch (err) {
+        console.error('Error deleting shop:', err);
+        // Could add toast notification here
+      }
+    }
+  };
+
+  const handleToggleShopStatus = async (shopId: string, isOpen: boolean) => {
+    const shop = shops.find(s => s.id === shopId);
+    if (shop) {
+      try {
+        await updateShop({ ...shop, isOpen });
+      } catch (err) {
+        console.error('Error updating shop status:', err);
+        // Could add toast notification here
+      }
+    }
   };
 
   const handleNavigate = (page: 'home' | 'profile' | 'about' | 'reviews') => {
@@ -309,10 +354,12 @@ const Index = () => {
                 }
               </span>
               <p className="text-xs text-gray-500">
-                {locationPermission === 'granted' 
-                  ? 'Live tracking • Within 2km radius'
-                  : 'Enable location for personalized results'
+                {useApi 
+                  ? `Connected to MongoDB ${locationPermission === 'granted' ? '• Live tracking • Within 2km radius' : ''}`
+                  : `Using demo data ${locationPermission === 'granted' ? '• Live tracking • Within 2km radius' : ''}`
                 }
+                {isLoading && ' • Loading...'}
+                {error && ' • Error occurred'}
               </p>
             </div>
           </div>
@@ -404,7 +451,7 @@ const Index = () => {
           </div>
         </div>
 
-        {/* About Section (reverted to previous style) */}
+        {/* About Section */}
         <section className="mb-16">
           <div className="flex flex-col items-center text-center">
             <h2 className="text-3xl font-bold mb-4 text-gray-900">About ShopExplore</h2>
