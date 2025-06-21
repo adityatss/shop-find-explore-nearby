@@ -1,4 +1,6 @@
 
+import axios, { AxiosInstance, AxiosResponse } from 'axios';
+
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
 
 export interface ApiShop {
@@ -28,64 +30,89 @@ export interface ApiShop {
 }
 
 class ApiService {
-  private async request<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
-    const url = `${API_BASE_URL}${endpoint}`;
-    const config: RequestInit = {
+  private api: AxiosInstance;
+
+  constructor() {
+    this.api = axios.create({
+      baseURL: API_BASE_URL,
       headers: {
         'Content-Type': 'application/json',
-        ...options.headers,
       },
-      ...options,
-    };
+      timeout: 10000, // 10 seconds timeout
+    });
 
-    try {
-      const response = await fetch(url, config);
-      
-      if (!response.ok) {
-        throw new Error(`API Error: ${response.status} ${response.statusText}`);
+    // Request interceptor
+    this.api.interceptors.request.use(
+      (config) => {
+        console.log(`Making ${config.method?.toUpperCase()} request to: ${config.url}`);
+        return config;
+      },
+      (error) => {
+        console.error('Request error:', error);
+        return Promise.reject(error);
       }
-      
-      return await response.json();
-    } catch (error) {
-      console.error('API Request failed:', error);
-      throw error;
-    }
+    );
+
+    // Response interceptor
+    this.api.interceptors.response.use(
+      (response: AxiosResponse) => {
+        console.log(`Response received from: ${response.config.url}`);
+        return response;
+      },
+      (error) => {
+        console.error('API Response error:', error.response?.data || error.message);
+        if (error.response?.status === 404) {
+          throw new Error('Resource not found');
+        } else if (error.response?.status >= 500) {
+          throw new Error('Server error occurred');
+        } else if (error.code === 'ECONNABORTED') {
+          throw new Error('Request timeout');
+        }
+        throw error;
+      }
+    );
   }
 
   async getNearbyShops(latitude: number, longitude: number, radiusKm: number = 2): Promise<ApiShop[]> {
-    return this.request<ApiShop[]>(`/shops/nearby?lat=${latitude}&lng=${longitude}&radius=${radiusKm}`);
+    const response = await this.api.get<ApiShop[]>(`/shops/nearby`, {
+      params: {
+        lat: latitude,
+        lng: longitude,
+        radius: radiusKm
+      }
+    });
+    return response.data;
   }
 
   async getAllShops(): Promise<ApiShop[]> {
-    return this.request<ApiShop[]>('/shops');
+    const response = await this.api.get<ApiShop[]>('/shops');
+    return response.data;
   }
 
   async getShopById(id: string): Promise<ApiShop> {
-    return this.request<ApiShop>(`/shops/${id}`);
+    const response = await this.api.get<ApiShop>(`/shops/${id}`);
+    return response.data;
   }
 
   async createShop(shop: Omit<ApiShop, '_id' | 'createdAt' | 'updatedAt'>): Promise<ApiShop> {
-    return this.request<ApiShop>('/shops', {
-      method: 'POST',
-      body: JSON.stringify(shop),
-    });
+    const response = await this.api.post<ApiShop>('/shops', shop);
+    return response.data;
   }
 
   async updateShop(id: string, shop: Partial<ApiShop>): Promise<ApiShop> {
-    return this.request<ApiShop>(`/shops/${id}`, {
-      method: 'PUT',
-      body: JSON.stringify(shop),
-    });
+    const response = await this.api.put<ApiShop>(`/shops/${id}`, shop);
+    return response.data;
   }
 
   async deleteShop(id: string): Promise<void> {
-    return this.request<void>(`/shops/${id}`, {
-      method: 'DELETE',
-    });
+    await this.api.delete(`/shops/${id}`);
   }
 
   async searchShops(query: string): Promise<ApiShop[]> {
-    return this.request<ApiShop[]>(`/shops/search?q=${encodeURIComponent(query)}`);
+    const response = await this.api.get<ApiShop[]>('/shops/search', {
+      params: { q: query }
+    });
+    return response.data;
   }
 }
 
