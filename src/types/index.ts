@@ -32,3 +32,10 @@ export interface User {
   name: string;
   email: string;
 }
+
+export interface AuthUser {
+  _id: string;
+  email: string;
+  name: string;
+  createdAt: string;
+}

@@ -4,6 +4,7 @@ const express = require('express');
 const connectDB = require('./config/database');
 const corsMiddleware = require('./middleware/cors');
 const shopRoutes = require('./routes/shops');
+const authRoutes = require('./routes/auth');
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Routes
 app.use('/api/shops', shopRoutes);
+app.use('/api/auth', authRoutes);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {

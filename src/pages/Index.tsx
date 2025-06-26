@@ -13,6 +13,7 @@ import SearchModal from '../components/SearchModal';
 import { Shop, UserLocation } from '../types';
 import { useShopsApi } from '../hooks/useShopsApi';
 import { calculateDistance } from '../utils/distance';
+import { useAuth } from '../hooks/useAuth';
 
 const Index = () => {
   const [userLocation, setUserLocation] = useState<UserLocation | null>(null);
@@ -24,14 +25,10 @@ const Index = () => {
   const [currentPage, setCurrentPage] = useState<'home' | 'profile' | 'about' | 'reviews'>('home');
   const [locationPermission, setLocationPermission] = useState<'pending' | 'granted' | 'denied'>('pending');
   const [watchId, setWatchId] = useState<number | null>(null);
-  const [currentUserId] = useState<string>(() => {
-    // Generate or retrieve user ID from localStorage
-    const existingId = localStorage.getItem('userId');
-    if (existingId) return existingId;
-    const newId = `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-    localStorage.setItem('userId', newId);
-    return newId;
-  });
+
+  // Use the new authentication system
+  const { getCurrentUserId } = useAuth();
+  const currentUserId = getCurrentUserId();
 
   // Use the new API hook
   const { 
