@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { User, Store, Home, Info, Star, Plus, Gem, LogOut } from 'lucide-react';
+import { User, Store, Home, Info, Star, Plus, ShoppingCart, LogOut } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import AuthModal from './AuthModal';
 
@@ -48,8 +48,8 @@ const Navbar: React.FC<NavbarProps> = ({ currentUserId, userShopsCount, onNaviga
               <div className="p-2 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
                 <Store size={24} className="text-white" />
               </div>
-              <Gem size={22} className="text-purple-500 ml-1 drop-shadow-glow animate-pulse" />
-              <h1 className="text-xl font-bold text-gray-900 ml-2">ShopExplore</h1>
+              <ShoppingCart size={22} className="text-blue-500 ml-1 drop-shadow-glow" />
+              <h1 className="text-xl font-bold text-gray-900 ml-2">BrowseCart</h1>
             </div>
             
             <div className="flex items-center space-x-2">

@@ -451,9 +451,9 @@ const Index = () => {
         {/* About Section */}
         <section className="mb-16">
           <div className="flex flex-col items-center text-center">
-            <h2 className="text-3xl font-bold mb-4 text-gray-900">About ShopExplore</h2>
+            <h2 className="text-3xl font-bold mb-4 text-gray-900">About BrowseCart</h2>
             <p className="text-lg text-gray-700 mb-6 max-w-2xl">
-              ShopExplore is your modern gateway to discovering the best local shops, unique products, and passionate small businesses around you.<br />
+              BrowseCart is your modern gateway to discovering the best local shops, unique products, and passionate small businesses around you.<br />
               Our mission is to empower community commerce and help you connect with neighborhood treasures in a few effortless taps.
             </p>
             <ul className="flex flex-col md:flex-row gap-3 md:gap-8 justify-center mb-2 list-none p-0">
