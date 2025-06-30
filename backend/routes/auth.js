@@ -1,10 +1,13 @@
 
 const express = require('express');
+const mongoose = require('mongoose');
 const User = require('../models/User');
 const router = express.Router();
 
 console.log('=== AUTH ROUTES MODULE ===');
 console.log('Auth routes file loaded successfully');
+console.log('User model:', User);
+console.log('Mongoose connection state:', mongoose.connection.readyState);
 
 // Simple password hashing (in production, use bcrypt)
 const hashPassword = (password) => {
@@ -19,10 +22,14 @@ const verifyPassword = (password, hashedPassword) => {
 router.get('/test', (req, res) => {
   console.log('=== AUTH TEST ROUTE ===');
   console.log('Auth test route hit successfully');
+  console.log('Mongoose connection state:', mongoose.connection.readyState);
+  console.log('User model available:', !!User);
   res.json({ 
     message: 'Auth routes are working!', 
     timestamp: new Date().toISOString(),
-    route: '/api/auth/test'
+    route: '/api/auth/test',
+    mongooseState: mongoose.connection.readyState,
+    userModelAvailable: !!User
   });
 });
 
@@ -31,8 +38,17 @@ router.post('/register', async (req, res) => {
   console.log('=== REGISTER ROUTE ===');
   console.log('Register route hit with body:', req.body);
   console.log('Content-Type:', req.headers['content-type']);
+  console.log('Mongoose connection state:', mongoose.connection.readyState);
+  console.log('User model:', User);
+  console.log('User.findOne method:', typeof User.findOne);
   
   try {
+    // Check MongoDB connection
+    if (mongoose.connection.readyState !== 1) {
+      console.log('MongoDB not connected. State:', mongoose.connection.readyState);
+      return res.status(500).json({ error: 'Database connection not established' });
+    }
+
     const { email, password, name } = req.body;
     
     console.log('Extracted fields:', { email, password: password ? '***' : undefined, name });
@@ -48,8 +64,12 @@ router.post('/register', async (req, res) => {
     }
 
     console.log('Checking if user exists with email:', email);
+    console.log('About to call User.findOne...');
+    
     // Check if user already exists
     const existingUser = await User.findOne({ email });
+    console.log('User.findOne completed. Existing user:', !!existingUser);
+    
     if (existingUser) {
       console.log('User already exists:', email);
       return res.status(400).json({ error: 'User already exists with this email' });
@@ -78,7 +98,12 @@ router.post('/register', async (req, res) => {
     console.error('=== REGISTRATION ERROR ===');
     console.error('Registration error:', error);
     console.error('Error stack:', error.stack);
-    res.status(500).json({ error: error.message });
+    console.error('Error name:', error.name);
+    console.error('Mongoose connection state:', mongoose.connection.readyState);
+    res.status(500).json({ 
+      error: error.message,
+      mongooseState: mongoose.connection.readyState
+    });
   }
 });
 
@@ -87,8 +112,15 @@ router.post('/login', async (req, res) => {
   console.log('=== LOGIN ROUTE ===');
   console.log('Login route hit with body:', req.body);
   console.log('Content-Type:', req.headers['content-type']);
+  console.log('Mongoose connection state:', mongoose.connection.readyState);
   
   try {
+    // Check MongoDB connection
+    if (mongoose.connection.readyState !== 1) {
+      console.log('MongoDB not connected. State:', mongoose.connection.readyState);
+      return res.status(500).json({ error: 'Database connection not established' });
+    }
+
     const { email, password } = req.body;
     
     console.log('Extracted fields:', { email, password: password ? '***' : undefined });
@@ -124,7 +156,11 @@ router.post('/login', async (req, res) => {
     console.error('=== LOGIN ERROR ===');
     console.error('Login error:', error);
     console.error('Error stack:', error.stack);
-    res.status(500).json({ error: error.message });
+    console.error('Mongoose connection state:', mongoose.connection.readyState);
+    res.status(500).json({ 
+      error: error.message,
+      mongooseState: mongoose.connection.readyState
+    });
   }
 });
 
