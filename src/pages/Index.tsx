@@ -376,7 +376,11 @@ const Index = () => {
         <div className="text-center mb-20 animate-fade-in">
           <div className="flex items-center justify-center mb-8">
             <div className="p-6 bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl shadow-2xl">
-              <Sparkles size={48} className="text-white" />
+              <img 
+                src="https://pplx-res.cloudinary.com/image/upload/v1751303563/gpt4o_images/jvidxt3mftinprm4e3g6.png" 
+                alt="BrowseCart" 
+                className="w-12 h-12 object-contain"
+              />
             </div>
           </div>
           
