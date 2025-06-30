@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { User, Store, Home, Info, Star, Plus, ShoppingCart, LogOut } from 'lucide-react';
+import { User, Store, Home, Info, Star, Plus, LogOut } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import AuthModal from './AuthModal';
 
@@ -45,10 +45,11 @@ const Navbar: React.FC<NavbarProps> = ({ currentUserId, userShopsCount, onNaviga
         <div className="max-w-6xl mx-auto px-4">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center space-x-2">
-              <div className="p-2 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-                <Store size={24} className="text-white" />
-              </div>
-              <ShoppingCart size={22} className="text-blue-500 ml-1 drop-shadow-glow" />
+              <img 
+                src="https://pplx-res.cloudinary.com/image/upload/v1751303563/gpt4o_images/jvidxt3mftinprm4e3g6.png" 
+                alt="BrowseCart" 
+                className="w-10 h-10 object-contain"
+              />
               <h1 className="text-xl font-bold text-gray-900 ml-2">BrowseCart</h1>
             </div>
             

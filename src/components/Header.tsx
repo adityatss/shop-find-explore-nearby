@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Search, MapPin, ShoppingCart } from 'lucide-react';
+import { Search, MapPin } from 'lucide-react';
 
 interface HeaderProps {
   onSearch: () => void;
@@ -12,18 +12,16 @@ const Header: React.FC<HeaderProps> = ({ onSearch }) => {
       <div className="max-w-6xl mx-auto px-4 py-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
-            <div className="relative">
-              <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl blur opacity-75"></div>
-              <div className="relative bg-gradient-to-r from-blue-600 to-purple-600 p-3 rounded-2xl shadow-xl">
-                <MapPin size={28} className="text-white" />
-              </div>
-            </div>
+            <img 
+              src="https://pplx-res.cloudinary.com/image/upload/v1751303563/gpt4o_images/jvidxt3mftinprm4e3g6.png" 
+              alt="BrowseCart" 
+              className="w-12 h-12 object-contain"
+            />
             <div>
               <div className="flex items-center space-x-2">
                 <h1 className="text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
                   BrowseCart
                 </h1>
-                <ShoppingCart size={20} className="text-blue-500 drop-shadow-glow" />
               </div>
               <p className="text-sm text-gray-600 font-medium">Browse • Shop • Discover</p>
             </div>
